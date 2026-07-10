@@ -195,6 +195,8 @@ screenshots/gmail-node.png
 screenshots/google-sheet-record.png
 ```
 
+WELL WELL WELL SCREENSHOTS NAMES ARE NOT SAME COZ I'M BORED< YK WHAT I MEAN HEHEHEHEH 
+
 ---
 
 ## Learning Outcomes
