@@ -1,83 +1,212 @@
-Age & Gender Email Automation with Google Sheets Record
-Overview
+# Age & Gender Email Automation with n8n
 
-This n8n workflow collects user information through an n8n form, evaluates the submitted data using a Switch node, sends an automated email based on the conditions, and stores both the submission details and the email reply in Google Sheets.
+An automated workflow built with **n8n** that collects user information through a form, evaluates the submission based on age and gender, sends a personalized email, and records the submission in Google Sheets.
 
-Features
-Collects user information using an n8n Form.
-Validates the user's age.
-Checks the user's gender.
-Sends personalized emails automatically.
-Records every submission in Google Sheets.
-Saves the exact email reply sent to the user.
-Workflow
-1. Form Submission
+---
 
-The user submits:
+## Features
 
-Age
-Gender
-Email Address
-2. Switch Node
+- Form-based user input
+- Conditional routing using the **Switch** node
+- Automated email notifications using Gmail
+- Google Sheets integration for data storage
+- Dynamic email responses based on user input
+- Automatic logging of the reply sent to each user
 
-The workflow processes the submission using the following conditions:
+---
 
-Condition 1: Age < 10
-Sends an email informing the user that they are underage.
-Records the submission in Google Sheets.
-Reply saved in the sheet:
-Under Age
-Condition 2: Gender = Male
-Sends an email with the message:
-I don't like boys
-Records the submission in Google Sheets.
-Reply saved in the sheet:
-I don't like boys
-Condition 3: Gender = Female
-Sends an email with the message:
-Heyy, how are you amor
-Records the submission in Google Sheets.
-Reply saved in the sheet:
-Hello Girl
+## Workflow
 
-
-
-Workflow Structure
+```text
 Form Trigger
       │
       ▼
    Switch Node
       │
       ├── Age < 10
-      │      ├── Send Email
-      │      └── Google Sheets (Reply: Under Age)
+      │      ├── Send "Under Age" Email
+      │      └── Append Row to Google Sheets
       │
-      ├── Male
-      │      ├── Send Email
-      │      └── Google Sheets (Reply: I don't like boys)
+      ├── Gender = Male
+      │      ├── Send "I don't like boys" Email
+      │      └── Append Row to Google Sheets
       │
-      └── Female
-             ├── Send Email
-             └── Google Sheets (Reply: Hello Girl)
+      └── Gender = Female
+             ├── Send "Heyy, how are you amor" Email
+             └── Append Row to Google Sheets
+```
 
+---
 
-             
-Technologies Used
-n8n
-n8n Form Trigger
-Switch Node
-Gmail
-Google Sheets
-Google Sheets Record
+## Workflow Logic
 
+### 1. Form Submission
 
-Age	  Gender	Email	            Reply
-8     Male	  user@example.com	Under Age
-21	  Male	  user@example.com	I don't like boys
-20	  Female	user@example.com	Hello Girl
+The workflow starts with an **n8n Form Trigger** that collects:
 
+- Age
+- Gender
+- Email Address
 
+---
 
-Outcome
+### 2. Age Validation
 
-The workflow automatically evaluates each form submission, sends the appropriate email, and logs the user's information along with the exact reply sent. This creates a complete audit trail of every interaction in Google Sheets.
+If the user's age is **less than 10**:
+
+- An email is sent informing the user that they are underage.
+- The submission is recorded in Google Sheets.
+- Reply recorded:
+  ```
+  Under Age
+  ```
+
+---
+
+### 3. Male User
+
+If the user is **Male**:
+
+- An email is sent with the message:
+  ```
+  I don't like boys
+  ```
+- The submission is recorded in Google Sheets.
+- Reply recorded:
+  ```
+  I don't like boys
+  ```
+
+---
+
+### 4. Female User
+
+If the user is **Female**:
+
+- An email is sent with the message:
+  ```
+  Heyy, how are you amor
+  ```
+- The submission is recorded in Google Sheets.
+- Reply recorded:
+  ```
+  Hello Girl
+  ```
+
+---
+
+## Technologies Used
+
+- n8n
+- Gmail
+- Google Sheets
+- Form Trigger
+- Switch Node
+
+---
+
+## Project Structure
+
+```
+Age-Gender-Email-Automation/
+├── README.md
+├── LICENSE
+├── .gitignore
+├── workflow/
+│   └── age-gender-email-automation.json
+├── screenshots/
+│   ├── workflow-overview.png
+│   ├── form-trigger.png
+│   ├── switch-node.png
+│   ├── gmail-node.png
+│   ├── google-sheets.png
+│   ├── form-submission.png
+│   └── google-sheet-record.png
+└── docs/
+    ├── workflow-explanation.md
+    └── setup-guide.md
+```
+
+---
+
+## Sample Google Sheets Record
+
+| Age | Gender | Email | Reply |
+|-----:|--------|-------|----------------------|
+| 8 | Male | user@example.com | Under Age |
+| 21 | Male | user@example.com | I don't like boys |
+| 20 | Female | user@example.com | Hello Girl |
+
+---
+
+## Setup
+
+1. Clone this repository.
+
+```bash
+git clone https://github.com/yourusername/Age-Gender-Email-Automation.git
+```
+
+2. Import the workflow from the `workflow/` folder into n8n.
+
+3. Configure your credentials:
+   - Gmail OAuth2
+   - Google Sheets OAuth2
+
+4. Update the Google Sheet ID.
+
+5. Activate the workflow.
+
+6. Submit the form and test the automation.
+
+---
+
+## Screenshots
+
+### Workflow Overview
+
+Add an image here:
+
+```
+screenshots/workflow-overview.png
+```
+
+### Form Trigger
+
+```
+screenshots/form-trigger.png
+```
+
+### Switch Node
+
+```
+screenshots/switch-node.png
+```
+
+### Gmail Node
+
+```
+screenshots/gmail-node.png
+```
+
+### Google Sheets Output
+
+```
+screenshots/google-sheet-record.png
+```
+
+---
+
+## Learning Outcomes
+
+- Building automated workflows with n8n
+- Using conditional logic with the Switch node
+- Sending dynamic emails with Gmail
+- Recording workflow data in Google Sheets
+- Integrating multiple services into a single automation pipeline
+
+---
+
+## License
+
+This project is licensed under the MIT License.
